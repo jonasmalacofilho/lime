@@ -1173,6 +1173,7 @@ struct JNIMethod : public nme::Object
    value CallStatic( value inArgs)
    {
       JNIEnv *env = GetEnv();
+      env->PushLocalFrame(128);
       jvalue jargs[MAX];
       if (!HaxeToJNIArgs(env,inArgs,jargs))
       {
@@ -1225,6 +1226,7 @@ struct JNIMethod : public nme::Object
 
       CleanStringArgs();
       CheckException(env);
+      env->PopLocalFrame(NULL);
       return result;
    }
 
